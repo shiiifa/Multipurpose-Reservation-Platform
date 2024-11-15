@@ -1,2 +1,4 @@
-public interface Authenticator extends FeedbackNotificationSystem {
+interface Authenticator extends FeedbackNotificationSystem {
+    void signIn();
+    void signUp();
 }
