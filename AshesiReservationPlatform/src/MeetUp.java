@@ -19,24 +19,14 @@ public class MeetUp extends Identity implements Calender {
         this.url = url;
     }
 
-    public String getSessionName() {
-        return sessionName;
-    }
-
-    public String getGuest() {
-        return guest();
-    }
-    public Time getTime() {
+    public String getSessionTime() {
         return time;
     }
 
-    public Date getDate(){
-        return date;
+    public String getGuest() {
+        return guest;
     }
-
-    public String getUrl() {
-        return url;
-    }
+    
 
     @Override
     public String getDetails() {
