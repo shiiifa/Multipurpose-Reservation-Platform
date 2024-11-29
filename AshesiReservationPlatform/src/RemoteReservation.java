@@ -5,11 +5,12 @@ public class RemoteReservation extends Reservation {
     private String roomName;
     private String location;
 
-    public RemoteReservation(Time time, Date date, String unit, String roomName, String location){
-        super(time, date, unit);
+    public RemoteReservation(Time time, Date date, String url, String roomName, String location) {
+        super(time, date, url);
         this.roomName=roomName;
         this.location=location;
     }
+
     public String getRoomName() {
         return roomName;
     }

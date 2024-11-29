@@ -1,7 +1,7 @@
 import java.sql.Time;
 import java.util.Date;
 
-public class MeetUp extends Identity implements Calender {
+public class MeetUp extends Identity {
     private String sessionName;
     private String guest;
     private Time time; 
@@ -20,15 +20,13 @@ public class MeetUp extends Identity implements Calender {
     }
 
     public String getSessionTime() {
-        return time;
+        return getSessionTime();
     }
 
     public String getGuest() {
         return guest;
     }
-    
 
-    @Override
     public String getDetails() {
         return "Session: " + sessionName + ", Guest: " + guest;
     }

@@ -1,3 +1,5 @@
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -45,14 +47,17 @@ public class AshesiReservationDriver {
 
             // Create a peer tutoring session
             PeerTutoring tutoring = new PeerTutoring(
-                    "Math Tutoring",
-                    "Tom Smith",
-                    LocalTime.of(14, 30),
-                    LocalDate.now().plusDays(1),
+                    "TomSmith",
+                    48822028,
+                    "tom.smith@ashesi.edu.gh",
+                    "ABCD",
                     "meet.university.edu/math",
-                    "Calculus 101",
-                    "John Doe"
-            );
+                    Time.valueOf("15:30:00"),
+                    Date.valueOf("2024-11-29"), "calendly.com",
+                    "Engineering Calculus",
+                    "Derrick Osei");
+
+
             System.out.println("Tutoring session created for: " + tutoring.getCourseName());
             System.out.println("Time: " + tutoring.getSessionTime());
 
@@ -61,25 +66,27 @@ public class AshesiReservationDriver {
 
             // Book a classroom
             ClassroomBooking classroom = new ClassroomBooking(
-                    "Room 101",
-                    "Science Building",
-                    "booking.university.edu/room101",
-                    "Lecture Hall"
-            );
+                    Time.valueOf("15:30:00"),
+                    Date.valueOf("2024-11-29"),
+                    "calendly.com",
+                    "Lecture Hall", "RB100",
+                    "Lecture hall");
             System.out.println("Classroom booked: " + classroom.getRoomName());
             System.out.println("Availability: " + classroom.checkAvailability());
+
 
             // Demonstrate housing system
             System.out.println("\n4. Testing Housing System:");
 
             // Create housing reservation
             OnCampusHousing housing = new OnCampusHousing(
-                    "Dorm 205",
-                    "West Campus",
-                    "housing.university.edu/dorm205",
-                    "Double Room",
-                    Arrays.asList("John Doe")
-            );
+                    Time.valueOf("15:30:00"),
+                    Date.valueOf("2024-11-29"),
+                    "booking.university.edu/room101",
+                    "Double Room", "Kofi Tawiah",
+                    1, "Two-in-a-rooom",
+                    Arrays.asList("John Doe"));
+
             System.out.println("Housing assigned: " + housing.getRoomName());
             System.out.println("Current occupancy: " + housing.getCurrentOccupancy());
 

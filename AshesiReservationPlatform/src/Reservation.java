@@ -4,12 +4,12 @@ import java.util.Date;
 public abstract class Reservation {
     private Time time;
     private Date date;
-    private String unit;
+    private String url;
 
-    public Reservation(Time time, Date date, String unit){
+    public Reservation(Time time, Date date, String url){
         this.time=time;
         this.date=date;
-        this.unit=unit;
+        this.url=url;
     }
 
     public Time getTime() {
@@ -20,8 +20,8 @@ public abstract class Reservation {
         return date.toString();
     }
 
-    public String getUnit() {
-        return unit;
+    public String getUrl() {
+        return url;
     }
 
     public abstract String getDetails();
