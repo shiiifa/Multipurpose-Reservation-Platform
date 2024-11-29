@@ -25,11 +25,11 @@ public class AshesiReservationDriver {
         displayHeader();
 
         // Initialize authentication system
-        AuthenticatorImpl auth = new AuthenticatorImpl();
+        SystemAuthenticationImpl auth = new SystemAuthenticationImpl();
         auth.addUser("student1", "password123");
 
         // Initialize feedback system
-        FeedbackSystem feedback = new FeedbackSystem();
+        SystemAuthenticationImpl feedback = new SystemAuthenticationImpl();
 
         try {
             // Demonstrate user authentication
@@ -38,7 +38,7 @@ public class AshesiReservationDriver {
 
             // Create a user identity
             Identity studentIdentity = new Identity("John Doe", 12345, "john.doe@university.edu");
-            System.out.println("User created: " + studentIdentity.getName());
+            System.out.println("User created: " + studentIdentity.getUserName());
 
             // Demonstrate meeting bookings
             System.out.println("\n2. Testing Meeting Bookings:");

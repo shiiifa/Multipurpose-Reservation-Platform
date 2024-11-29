@@ -3,19 +3,32 @@ public class Identity {
     private int userID;
     private String userEmail;
 
-    public String getName() {
-        return userName;
+    public Identity (String userName, int userID, String userEmail){
+        this.userName = userName;
+        this.userID = userID;
+        this.userEmail = userEmail;
     }
-
-    public int getID() {
-        return userID;
-    }
-
-    public String getEmail() {
-        return userEmail;
+    // Identity methods
+    public void setIdentity(String userName, int userID, String userEmail) {
+        this.userName = userName;
+        this.userID = userID;
+        this.userEmail = userEmail;
     }
 
     public void acceptUserData() {
-        // Logic to accept user data
+        //Logic to accept user data
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
     }
 }

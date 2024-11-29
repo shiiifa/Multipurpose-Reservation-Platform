@@ -5,6 +5,7 @@ public class OnCampusHousing extends RemoteReservation {
     private String roomType;
     private List<String> currentOccupants;
 
+
     public int getCurrentOccupancy() {
         return currentOccupancy;
     }

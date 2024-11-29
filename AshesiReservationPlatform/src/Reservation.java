@@ -1,11 +1,18 @@
+import java.sql.Time;
 import java.util.Date;
 
 public abstract class Reservation {
-    private String time;
+    private Time time;
     private Date date;
     private String unit;
 
-    public String getTime() {
+    public Reservation(Time time, Date date, String unit){
+        this.time=time;
+        this.date=date;
+        this.unit=unit;
+    }
+
+    public Time getTime() {
         return time;
     }
 

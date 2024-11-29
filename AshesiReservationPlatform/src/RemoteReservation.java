@@ -1,7 +1,15 @@
+import java.sql.Time;
+import java.util.Date;
+
 public class RemoteReservation extends Reservation {
     private String roomName;
     private String location;
 
+    public RemoteReservation(Time time, Date date, String unit, String roomName, String location){
+        super(time, date, unit);
+        this.roomName=roomName;
+        this.location=location;
+    }
     public String getRoomName() {
         return roomName;
     }
