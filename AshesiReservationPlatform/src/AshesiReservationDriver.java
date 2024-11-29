@@ -9,7 +9,7 @@ public class AshesiReservationDriver {
     private String welcomeMessage;
 
     public AshesiReservationDriver() {
-        this.headerText = "Welcome to Ashes Reservation System";
+        this.headerText = "Welcome to Ashesi Reservation System";
 
         this.welcomeMessage = "Please select from the available options";
     }
@@ -39,7 +39,7 @@ public class AshesiReservationDriver {
             auth.signIn();
 
             // Create a user identity
-            Identity studentIdentity = new Identity("John Doe", 12345, "john.doe@university.edu");
+            Identity studentIdentity = new Identity("John Doe", 12345, "john.doe@ashesi.edu.gh");
             System.out.println("User created: " + studentIdentity.getUserName());
 
             // Demonstrate meeting bookings
@@ -51,7 +51,7 @@ public class AshesiReservationDriver {
                     48822028,
                     "tom.smith@ashesi.edu.gh",
                     "ABCD",
-                    "meet.university.edu/math",
+                    "ABCDEF",
                     Time.valueOf("15:30:00"),
                     Date.valueOf("2024-11-29"), "calendly.com",
                     "Engineering Calculus",
@@ -69,7 +69,8 @@ public class AshesiReservationDriver {
                     Time.valueOf("15:30:00"),
                     Date.valueOf("2024-11-29"),
                     "calendly.com",
-                    "Lecture Hall", "RB100",
+                    "RB100",
+                    "Next to RB115",
                     "Lecture hall");
             System.out.println("Classroom booked: " + classroom.getRoomName());
             System.out.println("Availability: " + classroom.checkAvailability());
@@ -78,11 +79,12 @@ public class AshesiReservationDriver {
             // Demonstrate housing system
             System.out.println("\n4. Testing Housing System:");
 
+
             // Create housing reservation
             OnCampusHousing housing = new OnCampusHousing(
                     Time.valueOf("15:30:00"),
                     Date.valueOf("2024-11-29"),
-                    "booking.university.edu/room101",
+                    "calendly.com",
                     "Double Room", "Kofi Tawiah",
                     1, "Two-in-a-rooom",
                     Arrays.asList("John Doe"));

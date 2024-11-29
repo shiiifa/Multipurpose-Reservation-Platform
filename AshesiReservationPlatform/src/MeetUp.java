@@ -7,10 +7,11 @@ public class MeetUp extends Identity {
     private Time time; 
     private Date date;
     private String url;
+
     
     
     
-    public MeetUp(String userName, int userID, String userEmail, String sessionName, String guest, Time time, Date date, String url){
+    public MeetUp(String userName, int userID, String userEmail){
         super(userName, userID, userEmail);
         this.sessionName = sessionName;
         this.guest = guest;
@@ -20,11 +21,23 @@ public class MeetUp extends Identity {
     }
 
     public String getSessionTime() {
-        return getSessionTime();
+            return getSessionTime();
     }
 
     public String getGuest() {
         return guest;
+    }
+
+    public Time getTime(){
+        return time;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
+    public String getUrl(){
+        return url;
     }
 
     public String getDetails() {
