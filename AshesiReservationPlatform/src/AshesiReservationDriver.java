@@ -2,12 +2,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 
-public class AshesReservationDriver {
+public class AshesiReservationDriver {
     private String headerText;
     private String welcomeMessage;
 
-    public AshesReservationDriver() {
+    public AshesiReservationDriver() {
         this.headerText = "Welcome to Ashes Reservation System";
+
         this.welcomeMessage = "Please select from the available options";
     }
 
@@ -100,7 +101,7 @@ public class AshesReservationDriver {
 
     // Main method to run the driver
     public static void main(String[] args) {
-        AshesReservationDriver driver = new AshesReservationDriver();
+        AshesiReservationDriver driver = new AshesiReservationDriver();
         driver.run();
     }
 
