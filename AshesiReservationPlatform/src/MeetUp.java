@@ -1,26 +1,41 @@
 import java.sql.Time;
 import java.util.Date;
 
-public class MeetUp extends Reservation {
+public class MeetUp extends Identity implements Calender {
     private String sessionName;
     private String guest;
-
-    public MeetUp(Time time, Date date, String unit, String sessionName, String guest){
-        super(time, date, unit);
-        this.sessionName=sessionName;
-        this.guest=guest;
+    private Time time; 
+    private Date date;
+    private String url;
+    
+    
+    
+    public MeetUp(String userName, int userID, String userEmail, String sessionName, String guest, Time time, Date date, String url){
+        super(userName, userID, userEmail);
+        this.sessionName = sessionName;
+        this.guest = guest;
+        this.time = time;
+        this.date = date;
+        this.url = url;
     }
 
     public String getSessionName() {
-        return sessionName();
-    }
-
-    public String getSessionTime(){
-        return getSessionTime();
+        return sessionName;
     }
 
     public String getGuest() {
-        return guest;
+        return guest();
+    }
+    public Time getTime() {
+        return time;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
