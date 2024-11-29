@@ -19,7 +19,6 @@ public class SystemAuthenticationImpl implements SystemAuthenticationTools {
     }
 
     // Authentication methods
-
     public void addUser(String username, String password) {
         users.put(username, password);
     }

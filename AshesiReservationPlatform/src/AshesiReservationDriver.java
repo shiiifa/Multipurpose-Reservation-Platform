@@ -50,7 +50,7 @@ public class AshesiReservationDriver {
                     "TomSmith",
                     48822028,
                     "tom.smith@ashesi.edu.gh",
-                    "ABCD",
+                    "Lesson on Derivatives",
                     "ABCDEF",
                     Time.valueOf("15:30:00"),
                     Date.valueOf("2024-11-29"), "calendly.com",
@@ -59,7 +59,7 @@ public class AshesiReservationDriver {
 
 
             System.out.println("Tutoring session created for: " + tutoring.getCourseName());
-            System.out.println("Time: " + tutoring.getSessionTime());
+            System.out.println("Time: " + tutoring.getTime());
 
             // Demonstrate room reservations
             System.out.println("\n3. Testing Room Reservations:");

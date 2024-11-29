@@ -20,9 +20,6 @@ public class MeetUp extends Identity {
         this.url = url;
     }
 
-    public String getSessionTime() {
-            return getSessionTime();
-    }
 
     public String getGuest() {
         return guest;
