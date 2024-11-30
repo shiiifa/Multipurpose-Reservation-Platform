@@ -12,4 +12,5 @@ public class SeminarRoom extends RemoteReservation {
     public String getReservationPurpose() {
         return reservationPurpose;
     }
+
 }

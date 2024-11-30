@@ -105,7 +105,7 @@ public class AshesiReservationDriver {
             System.out.println("Error occurred: " + e.getMessage());
         } finally {
             System.out.println("\n*************************************");
-            System.out.println("Thank you for using Ashes Reservation System");
+            System.out.println("Thank you for using Ashesi Reservation System");
             System.out.println("*************************************");
         }
     }
@@ -114,6 +114,8 @@ public class AshesiReservationDriver {
     public static void main(String[] args) {
         AshesiReservationDriver driver = new AshesiReservationDriver();
         driver.run();
+
+        new SystemLogin();
     }
 
     // Getter methods
