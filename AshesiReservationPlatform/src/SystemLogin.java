@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SystemLogin extends JFrame {
     private JTextField usernameField;
@@ -12,7 +10,7 @@ public class SystemLogin extends JFrame {
     private JButton loginButton;
     private JButton resetButton;
     private JCheckBox showPasswordCheckBox;
-    private Identity currentUser;  // Identity object to store user details
+    private Identity currentUser;
 
     public SystemLogin() {
         // Frame setup
@@ -32,7 +30,7 @@ public class SystemLogin extends JFrame {
         headerPanel.setBackground(Color.decode("#ad3537"));
         headerPanel.setLayout(new BorderLayout());
 
-        // Ashesi Logo - Resized to half
+
         ImageIcon logo = new ImageIcon("ashesi.png");
         Image img = logo.getImage();
         Image scaledImg = img.getScaledInstance(75, 75, Image.SCALE_SMOOTH); // Reduced size to 75x75
@@ -141,11 +139,10 @@ public class SystemLogin extends JFrame {
         gbc.gridwidth = 2;
         this.add(footerPanel, gbc);
 
-        // Frame visibility
         this.setVisible(true);
     }
 
-    // Helper method for creating text fields with placeholders
+
     private JTextField createTextField(String placeholder) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Arial", Font.BOLD, 14));
@@ -189,7 +186,6 @@ public class SystemLogin extends JFrame {
             }
 
             public void focusLost(FocusEvent e) {
-                // If the field is empty, show the placeholder text again
                 if (String.valueOf(passwordField.getPassword()).isEmpty()) {
                     passwordField.setText(placeholder);
                     passwordField.setForeground(Color.GRAY);  // Placeholder text color
@@ -200,7 +196,6 @@ public class SystemLogin extends JFrame {
         return passwordField;
     }
 
-    // Helper method to style buttons
     private void styleButton(JButton button) {
         Font customFont = new Font("Arial", Font.BOLD, 14);
         button.setFont(customFont);
@@ -212,11 +207,9 @@ public class SystemLogin extends JFrame {
 
     // Backend method to handle login/signup process
     private void handleUserAuthentication(Identity user) {
-        // Here, you would integrate the actual backend authentication logic
-        // For now, let's print the user's data for testing
         System.out.println("User authenticated: " + user.getUserName());
-
-        // Proceed to next stage: select booking type
+        System.out.println("User ID: " + user.getUserID());
+        System.out.println("User Email address: " + user.getUserEmail());
         proceedToBookingSelection();
     }
 
@@ -237,12 +230,12 @@ public class SystemLogin extends JFrame {
         // Reservation Type Dropdown
         String[] reservationTypes = {"Human Reservation", "Remote Reservation"};
         JComboBox<String> reservationTypeDropdown = new JComboBox<>(reservationTypes);
-        reservationTypeDropdown.setFont(new Font("Arial", Font.BOLD, 14));
+        reservationTypeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 1;
         this.add(reservationTypeDropdown, gbc);
 
-        // Next Button for selection
+        // Next Button
         JButton nextButton = new JButton("Next");
         styleButton(nextButton);
         nextButton.addActionListener(e -> {
@@ -250,7 +243,7 @@ public class SystemLogin extends JFrame {
             if (selectedType.equals("Human Reservation")) {
                 showHumanReservationOptions();
             } else if (selectedType.equals("Remote Reservation")) {
-                showRemoteReservationOptions();
+                showRemoteReservationOptions();  // Placeholder method for remote reservation options
             }
         });
 
@@ -262,33 +255,34 @@ public class SystemLogin extends JFrame {
         this.repaint();
     }
 
-    // Method to display Human Reservation options
+    // Method to display options for human reservation (Peer Tutoring, Counseling, etc.)
     private void showHumanReservationOptions() {
-        this.getContentPane().removeAll();  // Clear current content
-        this.setLayout(new GridBagLayout());
+        this.getContentPane().removeAll();  // Clear the current content
+        this.setLayout(new GridBagLayout());  // Reset layout
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Title Section
-        JLabel titleLabel = new JLabel("Select Human Reservation", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Select Human Reservation Option", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
         this.add(titleLabel, gbc);
 
         // Human Reservation Dropdown
-        String[] humanOptions = {"Peer Tutoring Services", "Counselling Services", "Office Hours", "Career Services"};
-        JComboBox<String> humanDropdown = new JComboBox<>(humanOptions);
-        humanDropdown.setFont(new Font("Arial", Font.BOLD, 14));
+        String[] humanReservationOptions = {"Peer Tutoring Services", "Counseling Services", "Office Hours", "Career Services"};
+        JComboBox<String> humanReservationDropdown = new JComboBox<>(humanReservationOptions);
+        humanReservationDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 1;
-        this.add(humanDropdown, gbc);
+        this.add(humanReservationDropdown, gbc);
 
+        // Next Button
         JButton nextButton = new JButton("Next");
         styleButton(nextButton);
         nextButton.addActionListener(e -> {
-            String selectedOption = (String) humanDropdown.getSelectedItem();
+            // Handle the selection (for now just showing the selection)
+            String selectedOption = (String) humanReservationDropdown.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + selectedOption);
         });
 
@@ -300,34 +294,32 @@ public class SystemLogin extends JFrame {
         this.repaint();
     }
 
-    // Method to display Remote Reservation options
+    // Method to show options for remote reservations (Seminar room booking, etc.)
     private void showRemoteReservationOptions() {
-        this.getContentPane().removeAll();  // Clear current content
-        this.setLayout(new GridBagLayout());
+        this.getContentPane().removeAll();  // Clear the current content
+        this.setLayout(new GridBagLayout());  // Reset layout
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Title Section
-        JLabel titleLabel = new JLabel("Select Remote Reservation", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Select Remote Reservation Option", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
         this.add(titleLabel, gbc);
 
         // Remote Reservation Dropdown
-        String[] remoteOptions = {"Seminar Room Booking", "Classroom Booking", "Housing Selection"};
-        JComboBox<String> remoteDropdown = new JComboBox<>(remoteOptions);
-        remoteDropdown.setFont(new Font("Arial", Font.BOLD, 14));
+        String[] remoteReservationOptions = {"Seminar Room Booking", "Classroom Booking", "Housing Selection"};
+        JComboBox<String> remoteReservationDropdown = new JComboBox<>(remoteReservationOptions);
+        remoteReservationDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 1;
-        this.add(remoteDropdown, gbc);
+        this.add(remoteReservationDropdown, gbc);
 
+        // Next Button
         JButton nextButton = new JButton("Next");
         styleButton(nextButton);
         nextButton.addActionListener(e -> {
-            String selectedOption = (String) remoteDropdown.getSelectedItem();
-            JOptionPane.showMessageDialog(this, "You selected: " + selectedOption);
         });
 
         gbc.gridx = 0;
