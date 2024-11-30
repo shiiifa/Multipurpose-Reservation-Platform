@@ -5,8 +5,8 @@ public class PeerTutoring extends MeetUp {
     private String courseName;
     private String studentName;
 
-    public PeerTutoring(String userName, int userID, String userEmail, String sessionName, String guest, Time time, Date date, String url, String courseName, String studentName){
-        super(userName, userID, userEmail);
+    public PeerTutoring(String userName, int userID, String userEmail, String password, String sessionName, String guest, Time time, Date date, String url, String courseName, String studentName){
+        super(userName, userID, userEmail, password);
         this.courseName=courseName;
         this.studentName=studentName;
 

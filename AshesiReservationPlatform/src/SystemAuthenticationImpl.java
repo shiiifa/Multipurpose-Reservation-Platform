@@ -2,61 +2,63 @@ import java.util.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class SystemAuthenticationImpl implements SystemAuthenticationTools {
-    private HashMap<String, String> users;
+public class SystemAuthenticationImpl extends Identity implements SystemAuthenticationTools {
+    private List<Identity> users; // List to store user identities
     private String feedback;
     private String receipt;
-    private String name;
-    private int id;
-    private String email;
     private String roomName;
     private List<String> currentOccupants;
 
     // Constructor for initializing the system
-    public SystemAuthenticationImpl() {
-        this.users = new HashMap<>();
+    public SystemAuthenticationImpl(String userName, int userID, String userEmail, String password) {
+        super(userName, userID, userEmail, password);
+        this.users = new ArrayList<>();
         this.currentOccupants = new ArrayList<>();
     }
 
-    // Authentication methods
-    public void addUser(String username, String password) {
-        users.put(username, password);
+    // Add a new user
+    public void addUser(String userName, int userID, String userEmail, String password) {
+        Identity newUser = new Identity(userName, userID, userEmail, password);
+        users.add(newUser);
     }
 
+    // Sign-in method
     public void signIn() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter username: ");
-        String username = scanner.nextLine();
+        String inputUserName = scanner.nextLine();
 
         System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+        String inputPassword = scanner.nextLine();
 
-        if (users.containsKey(username) && users.get(username).equals(password)) {
-            System.out.println("Sign-in successful!");
+        boolean authenticated = false;
+
+        for (Identity user : users) {
+            if (user.getUserName().equals(inputUserName) && user.getPassword().equals(inputPassword)) {
+                authenticated = true;
+                break;
+            }
         }
 
-        else {
+        if (authenticated) {
+            System.out.println("Sign-in successful!");
+        } else {
             System.out.println("Authentication failed.");
         }
     }
 
-    //----------------------------------------------------------------------------------------------------
     // Feedback methods
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
 
-    public String getFeedBack() {
+    public String getFeedback() {
         return feedback;
     }
 
     public void generateReceipt(String receipt) {
         this.receipt = receipt;
-    }
-
-    public String getFeedback() {
-        return "";
     }
 
     public String displayReceipt() {
@@ -67,12 +69,9 @@ public class SystemAuthenticationImpl implements SystemAuthenticationTools {
         return "";
     }
 
-
     public String getNotification() {
         return "";
     }
-
-
 
     // Reservation methods
     public void setRoomReservation(String roomName, List<String> currentOccupants) {

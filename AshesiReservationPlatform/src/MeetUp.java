@@ -11,8 +11,8 @@ public class MeetUp extends Identity {
     
     
     
-    public MeetUp(String userName, int userID, String userEmail){
-        super(userName, userID, userEmail);
+    public MeetUp(String userName, int userID, String userEmail, String password){
+        super(userName, userID, userEmail, password);
         this.sessionName = sessionName;
         this.guest = guest;
         this.time = time;

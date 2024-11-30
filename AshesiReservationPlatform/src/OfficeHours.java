@@ -2,8 +2,8 @@ public class OfficeHours extends MeetUp {
     private String courseName;
     private String facultyName;
 
-    public OfficeHours(String userName, int userID, String userEmail, String courseName, String facultyName){
-        super(userName, userID, userEmail);
+    public OfficeHours(String userName, int userID, String userEmail, String password, String courseName, String facultyName){
+        super(userName, userID, userEmail, password);
         this.courseName=courseName;
         this.facultyName=facultyName;
     }

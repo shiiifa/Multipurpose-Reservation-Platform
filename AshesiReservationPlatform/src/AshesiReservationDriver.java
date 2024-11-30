@@ -10,7 +10,6 @@ public class AshesiReservationDriver {
 
     public AshesiReservationDriver() {
         this.headerText = "Welcome to Ashesi Reservation System";
-
         this.welcomeMessage = "Please select from the available options";
     }
 
@@ -27,19 +26,21 @@ public class AshesiReservationDriver {
         displayHeader();
 
         // Initialize authentication system
-        SystemAuthenticationImpl auth = new SystemAuthenticationImpl();
-        auth.addUser("student1", "password123");
+        SystemAuthenticationImpl auth = new SystemAuthenticationImpl("admin", 1, "admin@example.com", "adminPassword");
+        auth.addUser("student1", 2, "student1@example.com", "password123");
 
-        // Initialize feedback system
-        SystemAuthenticationImpl feedback = new SystemAuthenticationImpl();
+// Initialize feedback system
+        SystemAuthenticationImpl feedback = new SystemAuthenticationImpl("feedbackAdmin", 3, "feedback@example.com", "feedbackPass");
+
 
         try {
+
             // Demonstrate user authentication
             System.out.println("\n1. Testing Authentication System:");
             auth.signIn();
 
             // Create a user identity
-            Identity studentIdentity = new Identity("John Doe", 12345, "john.doe@ashesi.edu.gh");
+            Identity studentIdentity = new Identity("John Doe", 12345,"john.doe@ashesi.edu.gh","ashesi1234");
             System.out.println("User created: " + studentIdentity.getUserName());
 
             // Demonstrate meeting bookings
@@ -49,7 +50,7 @@ public class AshesiReservationDriver {
             PeerTutoring tutoring = new PeerTutoring(
                     "TomSmith",
                     48822028,
-                    "tom.smith@ashesi.edu.gh",
+                    "tom.smith@ashesi.edu.gh","123456",
                     "Lesson on Derivatives",
                     "ABCDEF",
                     Time.valueOf("15:30:00"),
@@ -63,6 +64,7 @@ public class AshesiReservationDriver {
 
             // Demonstrate room reservations
             System.out.println("\n3. Testing Room Reservations:");
+
 
             // Book a classroom
             ClassroomBooking classroom = new ClassroomBooking(
@@ -96,7 +98,7 @@ public class AshesiReservationDriver {
             System.out.println("\n5. Testing Feedback System:");
             feedback.setFeedback("Great experience with the room booking system!");
             feedback.generateReceipt("Room 101 booking confirmation");
-            System.out.println("Feedback received: " + feedback.getFeedBack());
+            System.out.println("Feedback received: " + feedback.getFeedback());
             System.out.println("Receipt: " + feedback.displayReceipt());
 
         } catch (Exception e) {
