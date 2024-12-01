@@ -49,7 +49,6 @@ public class OfficeHours extends MeetUp {
                 "Kofi Adu-Labi"
         )));
         COURSE_FACULTY.put("Electromagnetism", new ArrayList<>()); // No faculty yet
-        // Add any additional courses and lecturers as needed
     }
 
 }

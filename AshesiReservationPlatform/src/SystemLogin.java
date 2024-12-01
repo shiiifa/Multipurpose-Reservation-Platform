@@ -40,10 +40,7 @@ public class SystemLogin extends JFrame {
     private JPanel createLoginPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
         panel.setBackground(Color.decode("#ad3537"));
-
-        // Custom Font
         Font customFont = new Font("Arial", Font.BOLD, 14);
 
         // Header Section with Logo and Title
@@ -90,6 +87,7 @@ public class SystemLogin extends JFrame {
                 passwordField.setEchoChar('•');
             }
         });
+
         gbc.gridy = 5; panel.add(showPasswordCheckBox, gbc);
 
         // Login Button
@@ -264,6 +262,61 @@ public class SystemLogin extends JFrame {
         }
     }
 
+    private void showCareerServicesOptions() {
+        JPanel careerServicesPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        careerServicesPanel.setBackground(Color.decode("#ad3537"));
+
+        JLabel titleLabel = new JLabel("Career Services", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        gbc.gridx = 0; gbc.gridy = 0; careerServicesPanel.add(titleLabel, gbc);
+
+        // Dropdown for selecting year group
+        String[] yearGroups = {"2028", "2027", "2026", "2025"};
+        JComboBox<String> yearGroupDropdown = new JComboBox<>(yearGroups);
+        yearGroupDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 1; careerServicesPanel.add(yearGroupDropdown, gbc);
+
+        // Dropdown for selecting faculty (initially empty)
+        JComboBox<String> facultyDropdown = new JComboBox<>();
+        facultyDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 2; careerServicesPanel.add(facultyDropdown, gbc);
+
+        // Listener for year group dropdown selection
+        yearGroupDropdown.addActionListener(e -> {
+            String selectedYearGroup = (String) yearGroupDropdown.getSelectedItem();
+            updateFacultyDropdown(Integer.parseInt(selectedYearGroup), facultyDropdown);
+        });
+
+        // Submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(e -> {
+            String selectedFaculty = (String) facultyDropdown.getSelectedItem();
+            handleFacultySelection(selectedFaculty);
+        });
+        gbc.gridy = 3; careerServicesPanel.add(submitButton, gbc);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "bookingSelection"));
+        gbc.gridy = 4; careerServicesPanel.add(backButton, gbc);
+
+        cardPanel.add(careerServicesPanel, "careerServicesOptions");
+        cardLayout.show(cardPanel, "careerServicesOptions");
+    }
+
+    // Helper method to update the faculty dropdown based on the selected year group
+    private void updateFacultyDropdown(int selectedYearGroup, JComboBox<String> facultyDropdown) {
+        facultyDropdown.removeAllItems(); // Clear existing items
+        String facultyName = CareerServices.getFacultyForYearGroup(selectedYearGroup);
+        facultyDropdown.addItem(facultyName); // Add the faculty member to the dropdown
+    }
+
+    // Handle faculty selection
+    private void handleFacultySelection(String selectedFaculty) {
+        JOptionPane.showMessageDialog(null, "You have selected " + selectedFaculty, "Faculty Selected", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void showOfficeHoursOptions() {
         JPanel officeHoursPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -309,8 +362,27 @@ public class SystemLogin extends JFrame {
     }
 
     private void handleOfficeHoursBooking(String selectedCourse, String selectedLecturer) {
-        // Implement the logic to handle office hours booking here
+        // Check if the selected lecturer matches a specific faculty member and redirect accordingly
+        if ("Sussan Einakian".equals(selectedLecturer)) {
+            openLink("https://calpoly.zoom.us/j/83854958595");
+        } else if ("Elena V. Rosca".equals(selectedLecturer)) {
+            openLink("https://outlook.office.com/bookwithme/user/a4ce7d45f25b426795db7b3401eed88d%40ashesi.edu.gh?anonymous");
+        } else if ("Kofi Adu-Labi".equals(selectedLecturer)) {
+            openLink("https://outlook.office.com/bookwithme/user/a4ce7d45f25b426795db7b3401eed88d%40ashesi.edu.gh?anonymous");
+        } else {
+            openLink("https://calendly.com");
+        }
     }
+
+    // Helper method to open the given URL in the browser
+    private void openLink(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url)); // Opens the URL in the default web browser
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void updateLecturerDropdown(String selectedCourse, JComboBox<String> lecturerDropdown) {
         // Clear previous items
@@ -386,7 +458,7 @@ public class SystemLogin extends JFrame {
 
     private void showClassroomBookingOptions() {
         Map<String, String> classrooms = ClassroomBooking.getClassroomList();
-        String[] classroomNames = classrooms.keySet().toArray(new String[0]);
+        String[] classroomTypes = {"Lecture room", "Lecture hall"};
 
         JPanel classroomBookingPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -397,37 +469,65 @@ public class SystemLogin extends JFrame {
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0; gbc.gridy = 0; classroomBookingPanel.add(titleLabel, gbc);
 
-        JComboBox<String> classroomDropdown = new JComboBox<>(classroomNames);
-        classroomDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy = 1; classroomBookingPanel.add(classroomDropdown, gbc);
+        // Dropdown for selecting classroom type
+        JComboBox<String> classroomTypeDropdown = new JComboBox<>(classroomTypes);
+        classroomTypeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 1; classroomBookingPanel.add(classroomTypeDropdown, gbc);
 
+        // Dropdown for selecting classroom (this will be updated based on the classroom type)
+        JComboBox<String> classroomDropdown = new JComboBox<>();
+        classroomDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 2; classroomBookingPanel.add(classroomDropdown, gbc);
+
+        // Listener for classroom type selection to filter classrooms
+        classroomTypeDropdown.addActionListener(e -> {
+            String selectedType = (String) classroomTypeDropdown.getSelectedItem();
+            updateClassroomDropdown(selectedType, classroomDropdown, classrooms);
+        });
+
+        // Dropdown for time selection
         String[] times = {
                 "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM",
                 "6:00 PM", "7:00 PM", "8:00 PM"
         };
         JComboBox<String> timeDropdown = new JComboBox<>(times);
         timeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy = 2; classroomBookingPanel.add(timeDropdown, gbc);
+        gbc.gridy = 3; classroomBookingPanel.add(timeDropdown, gbc);
 
+        // Book Button
         JButton nextButton = new JButton("Book");
         nextButton.addActionListener(e -> {
             String selectedClassroom = (String) classroomDropdown.getSelectedItem();
             String selectedTime = (String) timeDropdown.getSelectedItem();
             handleClassroomBooking(selectedClassroom, selectedTime);
         });
-        gbc.gridy = 3; classroomBookingPanel.add(nextButton, gbc);
+        gbc.gridy = 4; classroomBookingPanel.add(nextButton, gbc);
 
+        // Back Button
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "remoteReservationOptions"));
-        gbc.gridy = 4; classroomBookingPanel.add(backButton, gbc);
+        gbc.gridy = 5; classroomBookingPanel.add(backButton, gbc);
 
         cardPanel.add(classroomBookingPanel, "classroomBookingOptions");
         cardLayout.show(cardPanel, "classroomBookingOptions");
+
+        // Initial population of classroom dropdown (default to "Lecture room")
+        updateClassroomDropdown("Lecture room", classroomDropdown, classrooms);
     }
 
-    private void handleClassroomBooking(String classroom, String time) {
-        System.out.println("Booking classroom: " + classroom + " at " + time);
-        // Handle booking logic (e.g., show confirmation, book classroom, etc.)
+    private void handleClassroomBooking(String selectedClassroom, String selectedTime) {
+    }
+
+    private void updateClassroomDropdown(String selectedType, JComboBox<String> classroomDropdown, Map<String, String> classrooms) {
+        // Clear previous classroom options
+        classroomDropdown.removeAllItems();
+
+        // Filter classrooms based on the selected classroom type
+        for (Map.Entry<String, String> entry : classrooms.entrySet()) {
+            if (entry.getValue().equals(selectedType)) {
+                classroomDropdown.addItem(entry.getKey()); // Add classroom to dropdown
+            }
+        }
     }
 
 }
