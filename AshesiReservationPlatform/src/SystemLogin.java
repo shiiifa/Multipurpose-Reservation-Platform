@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 public class SystemLogin extends JFrame {
     private JTextField usernameField, userIDField, emailField;
@@ -246,27 +247,19 @@ public class SystemLogin extends JFrame {
     }
 
     private void handleHumanReservationSelection(String selectedOption) {
-        String url = "";
         switch (selectedOption) {
             case "Career Services":
-            case "Office Hours":
-                url = "https://calendly.com";
+                openURL("https://calendly.com");
                 break;
             case "Peer Tutoring":
-                url = "https://bookingsite-28132.web.app/";
+                openURL("https://bookingsite-28132.web.app/");
                 break;
             case "Counselling Services":
-                url = "https://ashesicounsellingunit.simplybook.me/";
+                openURL("https://ashesicounsellingunit.simplybook.me/");
                 break;
-        }
-        openURL(url);
-    }
-
-    private void openURL(String url) {
-        try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error opening URL: " + e.getMessage());
+            case "Office Hours":
+                openURL("https://calendly.com");
+                break;
         }
     }
 
@@ -305,22 +298,71 @@ public class SystemLogin extends JFrame {
     }
 
     private void handleRemoteReservationSelection(String selectedOption) {
-        String url = "";
         switch (selectedOption) {
             case "Housing Selection":
-                url = "https://www.ahs.mgmhubs.com/";
+                openURL("https://www.ahs.mgmhubs.com/");
                 break;
             case "Classroom Booking":
-                // Handle Classroom Booking (additional logic if needed)
-                url = "https://example.com"; // Placeholder URL for now
+                showClassroomBookingOptions();
                 break;
             case "Seminar Room Booking":
-                String reservationPurpose = JOptionPane.showInputDialog(this, "Enter Reservation Purpose:");
-                if (reservationPurpose != null && !reservationPurpose.isEmpty()) {
-                    url = "https://warrenlibraryseminarroom.simplybook.me/v2/";
-                }
+                openURL("https://warrenlibraryseminarroom.simplybook.me/v2/");
                 break;
         }
-        if (!url.isEmpty()) openURL(url);
     }
+
+    private void openURL(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showClassroomBookingOptions() {
+        Map<String, String> classrooms = ClassroomBooking.getClassroomList();
+        String[] classroomNames = classrooms.keySet().toArray(new String[0]);
+
+        JPanel classroomBookingPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        classroomBookingPanel.setBackground(Color.decode("#ad3537"));
+
+        JLabel titleLabel = new JLabel("Classroom Booking", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        gbc.gridx = 0; gbc.gridy = 0; classroomBookingPanel.add(titleLabel, gbc);
+
+        JComboBox<String> classroomDropdown = new JComboBox<>(classroomNames);
+        classroomDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 1; classroomBookingPanel.add(classroomDropdown, gbc);
+
+        String[] times = {
+                "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM",
+                "6:00 PM", "7:00 PM", "8:00 PM"
+        };
+        JComboBox<String> timeDropdown = new JComboBox<>(times);
+        timeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 2; classroomBookingPanel.add(timeDropdown, gbc);
+
+        JButton nextButton = new JButton("Book");
+        nextButton.addActionListener(e -> {
+            String selectedClassroom = (String) classroomDropdown.getSelectedItem();
+            String selectedTime = (String) timeDropdown.getSelectedItem();
+            handleClassroomBooking(selectedClassroom, selectedTime);
+        });
+        gbc.gridy = 3; classroomBookingPanel.add(nextButton, gbc);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "remoteReservationOptions"));
+        gbc.gridy = 4; classroomBookingPanel.add(backButton, gbc);
+
+        cardPanel.add(classroomBookingPanel, "classroomBookingOptions");
+        cardLayout.show(cardPanel, "classroomBookingOptions");
+    }
+
+    private void handleClassroomBooking(String classroom, String time) {
+        System.out.println("Booking classroom: " + classroom + " at " + time);
+        // Handle booking logic (e.g., show confirmation, book classroom, etc.)
+    }
+
 }
