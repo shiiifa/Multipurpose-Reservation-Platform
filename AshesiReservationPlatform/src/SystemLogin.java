@@ -178,6 +178,8 @@ public class SystemLogin extends JFrame {
         return passwordField;
     }
 
+
+
     private void handleUserAuthentication(Identity user) {
         System.out.println("User authenticated: " + user.getUserName());
         System.out.println("User ID: " + user.getUserID());
@@ -203,7 +205,7 @@ public class SystemLogin extends JFrame {
         gbc.gridy = 0;
         panel.add(titleLabel, gbc);
 
-        String[] reservationTypes = {"Human Reservations", "Remote Reservations"};
+        String[] reservationTypes = {"Human-Based Reservations", "Remote Reservations"};
         JComboBox<String> reservationTypeDropdown = new JComboBox<>(reservationTypes);
         reservationTypeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridy = 1;
@@ -213,7 +215,7 @@ public class SystemLogin extends JFrame {
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> {
             String selectedType = (String) reservationTypeDropdown.getSelectedItem();
-            if (selectedType.equals("Human Reservations")) {
+            if (selectedType.equals("Human-Based Reservations")) {
                 showHumanReservationOptions();
             } else if (selectedType.equals("Remote Reservations")) {
                 showRemoteReservationOptions();
@@ -277,6 +279,8 @@ public class SystemLogin extends JFrame {
                 openURL("https://warrenlibraryseminarroom.simplybook.me/v2/");
                 break;
         }
+        showFeedbackPanel();
+        showThankYouMessage();
     }
 
     private void showClassroomBookingOptions() {
@@ -345,8 +349,8 @@ public class SystemLogin extends JFrame {
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        // Optionally, you can clear selections or navigate back here
-        // e.g., cardLayout.show(cardPanel, "someOtherPanel");
+        showFeedbackPanel();
+        showThankYouMessage();
     }
 
 
@@ -368,7 +372,7 @@ public class SystemLogin extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         humanReservationPanel.setBackground(Color.decode("#ad3537"));
 
-        JLabel titleLabel = new JLabel("Human Reservation Options", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Human-Based Reservation Options", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
@@ -494,6 +498,8 @@ public class SystemLogin extends JFrame {
         } else {
             openLink("https://calendly.com");
         }
+        showFeedbackPanel();
+        showThankYouMessage();
     }
 
     // Helper method to open the given URL in the browser
@@ -624,18 +630,28 @@ public class SystemLogin extends JFrame {
             String feedback = feedbackTextArea.getText().trim();
 
             if (feedback.isEmpty()) {
-
-                // If no feedback provided, simply show the final message
-                showThankYouMessage();
+                // If no feedback provided, show the thank you message after a delay
+                showThankYouMessageAfterRedirection();
             } else {
                 System.out.println("Feedback: " + feedback);
-                showThankYouMessage();
+                // Trigger redirection and then show "Thank You" message after a delay
+                showThankYouMessageAfterRedirection();
             }
         });
         gbc.gridy = 2;
         feedbackPanel.add(nextButton, gbc);
 
         return feedbackPanel;
+    }
+
+    private void showThankYouMessageAfterRedirection() {
+        // Redirect the user to the site (replace this with actual redirection logic)
+        openLink("https://your-redirection-link.com");
+
+        // After a small delay, show the "Thank You" message
+        Timer timer = new Timer(2000, e -> showThankYouMessage()); // Delay 2 seconds before showing the message
+        timer.setRepeats(false);
+        timer.start();
     }
 
     private void showThankYouMessage() {
@@ -649,4 +665,5 @@ public class SystemLogin extends JFrame {
         cardPanel.add(thankYouPanel, "thankYou");
         cardLayout.show(cardPanel, "thankYou");
     }
+
 }
