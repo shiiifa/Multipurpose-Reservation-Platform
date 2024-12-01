@@ -46,9 +46,11 @@ public class OfficeHours extends MeetUp {
                 "Ayawoa Sitsope Dagbovie", "Patrick Dwomfour"
         )));
         COURSE_FACULTY.put("Pre-Calculus I", new ArrayList<>(List.of(
+                "Joseph Mensah"
+        )));
+        COURSE_FACULTY.put("Electromagnetism", new ArrayList<>(List.of(
                 "Kofi Adu-Labi"
         )));
-        COURSE_FACULTY.put("Electromagnetism", new ArrayList<>()); // No faculty yet
     }
 
 }
