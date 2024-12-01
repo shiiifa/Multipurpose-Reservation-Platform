@@ -4,7 +4,7 @@ public class Counselling extends MeetUp {
     // Constructor for initializing Counselling object
     public Counselling(String userName, int userID, String userEmail, String password, String sessionName, String guest, String counsellorName) {
         super(userName, userID, userEmail, password);
-        this.counsellorName = counsellorName;
+        this.counsellorName = "Salim Wangabi";
     }
 
     // Getter for counsellorName

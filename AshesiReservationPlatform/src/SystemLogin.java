@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class SystemLogin extends JFrame {
     private JTextField usernameField, userIDField, emailField;
@@ -183,7 +185,7 @@ public class SystemLogin extends JFrame {
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0; gbc.gridy = 0; panel.add(titleLabel, gbc);
 
-        String[] reservationTypes = {"Human Reservation", "Remote Reservation"};
+        String[] reservationTypes = {"Human Reservations", "Remote Reservations"};
         JComboBox<String> reservationTypeDropdown = new JComboBox<>(reservationTypes);
         reservationTypeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridy = 1; panel.add(reservationTypeDropdown, gbc);
@@ -192,9 +194,9 @@ public class SystemLogin extends JFrame {
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> {
             String selectedType = (String) reservationTypeDropdown.getSelectedItem();
-            if (selectedType.equals("Human Reservation")) {
+            if (selectedType.equals("Human Reservations")) {
                 showHumanReservationOptions();
-            } else if (selectedType.equals("Remote Reservation")) {
+            } else if (selectedType.equals("Remote Reservations")) {
                 showRemoteReservationOptions();
             }
         });
@@ -209,114 +211,116 @@ public class SystemLogin extends JFrame {
     }
 
     private void showHumanReservationOptions() {
-        JPanel humanReservationPanel = createHumanReservationPanel();
-        cardPanel.add(humanReservationPanel, "humanReservation");
-        cardLayout.show(cardPanel, "humanReservation");
-    }
-
-    private JPanel createHumanReservationPanel() {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel humanReservationPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        panel.setBackground(Color.decode("#ad3537"));
+        humanReservationPanel.setBackground(Color.decode("#ad3537"));
 
-        JLabel titleLabel = new JLabel("Select Human Reservation Option", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Human Reservation Options", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
-        gbc.gridx = 0; gbc.gridy = 0; panel.add(titleLabel, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; humanReservationPanel.add(titleLabel, gbc);
 
-        String[] humanReservationOptions = {"Peer Tutoring", "Counseling", "Office Hours", "Career Services"};
-        JComboBox<String> humanReservationDropdown = new JComboBox<>(humanReservationOptions);
+        String[] humanReservations = {
+                "Career Services",
+                "Peer Tutoring",
+                "Counselling Services",
+                "Office Hours"
+        };
+        JComboBox<String> humanReservationDropdown = new JComboBox<>(humanReservations);
         humanReservationDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy = 1; panel.add(humanReservationDropdown, gbc);
+        gbc.gridy = 1; humanReservationPanel.add(humanReservationDropdown, gbc);
 
-        // Next Button
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> proceedToBookingSummary((String) humanReservationDropdown.getSelectedItem(), "person"));
-        gbc.gridy = 2; panel.add(nextButton, gbc);
+        JButton nextButton = new JButton("Go");
+        nextButton.addActionListener(e -> {
+            String selectedOption = (String) humanReservationDropdown.getSelectedItem();
+            handleHumanReservationSelection(selectedOption);
+        });
+        gbc.gridy = 2; humanReservationPanel.add(nextButton, gbc);
 
-        // Back Button
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "bookingSelection"));
-        gbc.gridy = 3; panel.add(backButton, gbc);
+        gbc.gridy = 3; humanReservationPanel.add(backButton, gbc);
 
-        return panel;
+        cardPanel.add(humanReservationPanel, "humanReservationOptions");
+        cardLayout.show(cardPanel, "humanReservationOptions");
+    }
+
+    private void handleHumanReservationSelection(String selectedOption) {
+        String url = "";
+        switch (selectedOption) {
+            case "Career Services":
+            case "Office Hours":
+                url = "https://calendly.com";
+                break;
+            case "Peer Tutoring":
+                url = "https://bookingsite-28132.web.app/";
+                break;
+            case "Counselling Services":
+                url = "https://ashesicounsellingunit.simplybook.me/";
+                break;
+        }
+        openURL(url);
+    }
+
+    private void openURL(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error opening URL: " + e.getMessage());
+        }
     }
 
     private void showRemoteReservationOptions() {
-        JPanel remoteReservationPanel = createRemoteReservationPanel();
-        cardPanel.add(remoteReservationPanel, "remoteReservation");
-        cardLayout.show(cardPanel, "remoteReservation");
-    }
-
-    private JPanel createRemoteReservationPanel() {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel remoteReservationPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        panel.setBackground(Color.decode("#ad3537"));
+        remoteReservationPanel.setBackground(Color.decode("#ad3537"));
 
-        JLabel titleLabel = new JLabel("Select Remote Reservation Option", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Remote Reservation Options", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
-        gbc.gridx = 0; gbc.gridy = 0; panel.add(titleLabel, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; remoteReservationPanel.add(titleLabel, gbc);
 
-        String[] remoteReservationOptions = {"Remote Tutoring", "Remote Counseling", "Virtual Office Hours"};
-        JComboBox<String> remoteReservationDropdown = new JComboBox<>(remoteReservationOptions);
+        String[] remoteReservations = {
+                "Housing Selection",
+                "Classroom Booking",
+                "Seminar Room Booking"
+        };
+        JComboBox<String> remoteReservationDropdown = new JComboBox<>(remoteReservations);
         remoteReservationDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy = 1; panel.add(remoteReservationDropdown, gbc);
+        gbc.gridy = 1; remoteReservationPanel.add(remoteReservationDropdown, gbc);
 
-        // Next Button
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> proceedToBookingSummary((String) remoteReservationDropdown.getSelectedItem(), null));
-        gbc.gridy = 2; panel.add(nextButton, gbc);
+        JButton nextButton = new JButton("Go");
+        nextButton.addActionListener(e -> {
+            String selectedOption = (String) remoteReservationDropdown.getSelectedItem();
+            handleRemoteReservationSelection(selectedOption);
+        });
+        gbc.gridy = 2; remoteReservationPanel.add(nextButton, gbc);
 
-        // Back Button
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "bookingSelection"));
-        gbc.gridy = 3; panel.add(backButton, gbc);
+        gbc.gridy = 3; remoteReservationPanel.add(backButton, gbc);
 
-        return panel;
+        cardPanel.add(remoteReservationPanel, "remoteReservationOptions");
+        cardLayout.show(cardPanel, "remoteReservationOptions");
     }
 
-    private void proceedToBookingSummary(String selectedOption, String person) {
-        JPanel bookingSummaryPanel = createBookingSummaryPanel(selectedOption, person);
-        cardPanel.add(bookingSummaryPanel, "bookingSummary");
-        cardLayout.show(cardPanel, "bookingSummary");
-    }
-
-    private JPanel createBookingSummaryPanel(String selectedOption, String person) {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        panel.setBackground(Color.decode("#ad3537"));
-
-        JLabel titleLabel = new JLabel("Booking Summary", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(Color.WHITE);
-        gbc.gridx = 0; gbc.gridy = 0; panel.add(titleLabel, gbc);
-
-        String summary = "You have selected: " + selectedOption;
-        if (person != null) {
-            summary += "\nPerson: " + person;
+    private void handleRemoteReservationSelection(String selectedOption) {
+        String url = "";
+        switch (selectedOption) {
+            case "Housing Selection":
+                url = "https://www.ahs.mgmhubs.com/";
+                break;
+            case "Classroom Booking":
+                // Handle Classroom Booking (additional logic if needed)
+                url = "https://example.com"; // Placeholder URL for now
+                break;
+            case "Seminar Room Booking":
+                String reservationPurpose = JOptionPane.showInputDialog(this, "Enter Reservation Purpose:");
+                if (reservationPurpose != null && !reservationPurpose.isEmpty()) {
+                    url = "https://warrenlibraryseminarroom.simplybook.me/v2/";
+                }
+                break;
         }
-        JLabel summaryLabel = new JLabel(summary, JLabel.CENTER);
-        summaryLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        summaryLabel.setForeground(Color.WHITE);
-        gbc.gridy = 1; panel.add(summaryLabel, gbc);
-
-        // Confirm Booking Button
-        JButton confirmButton = new JButton("Confirm Booking");
-        confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Booking Confirmed!", "Success", JOptionPane.INFORMATION_MESSAGE));
-        gbc.gridy = 2; panel.add(confirmButton, gbc);
-
-        // Back Button
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> {
-            if (person == null) {
-                cardLayout.show(cardPanel, "bookingSelection");
-            } else {
-                cardLayout.show(cardPanel, "humanReservation");
-            }
-        });
-        gbc.gridy = 3; panel.add(backButton, gbc);
-
-        return panel;
+        if (!url.isEmpty()) openURL(url);
     }
 }
