@@ -2,27 +2,33 @@ import java.sql.Time;
 import java.util.Date;
 
 public abstract class Reservation {
+    // Static constant for the URL that all subclasses will share
+    public static final String URL = "https://calendly.com";
+
     private Time time;
     private Date date;
-    private String url;
 
-    public Reservation(Time time, Date date, String url){
-        this.time=time;
-        this.date=date;
-        this.url=url;
+    // Constructor for initializing time, date, and the shared URL
+    public Reservation(Time time, Date date, String url) {
+        this.time = time;
+        this.date = date;
     }
 
+    // Getter for time
     public Time getTime() {
         return time;
     }
 
+    // Getter for date as a String
     public String getDate() {
         return date.toString();
     }
 
+    // Getter for the shared URL (constant URL)
     public String getUrl() {
-        return url;
+        return URL;
     }
 
+    // Abstract method for details that must be implemented in subclasses
     public abstract String getDetails();
 }
