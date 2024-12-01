@@ -9,8 +9,6 @@ public class AshesiReservationDriver {
     // Main method to run the driver
     public static void main(String[] args) {
         AshesiReservationDriver driver = new AshesiReservationDriver();
-        driver.run();  // Run only the GUI with header and welcome messages
+        driver.run();
     }
-
-    // Getter methods
 }

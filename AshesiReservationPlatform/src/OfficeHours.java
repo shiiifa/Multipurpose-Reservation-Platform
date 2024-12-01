@@ -15,22 +15,22 @@ public class OfficeHours extends MeetUp {
         initializeCourseFaculty();
     }
 
-    public OfficeHours(String userName, int userID, String userEmail, String password, String courseName, String facultyName) {
+    public OfficeHours(String userName, int userID, String userEmail, String password) {
         super(userName, userID, userEmail, password);
-        this.courseName = courseName;
-        this.facultyName = facultyName;
     }
 
+    // Getter for courseName
     public String getCourseName() {
         return courseName;
     }
 
+    // Getter for facultyName
     public String getFacultyName() {
         return facultyName;
     }
 
     // Method to retrieve the map of courses and faculty members
-    public static Map<String, List<String>> getCourseFaculty() {
+    public static Map<String, List<String>> getCourseFacultyMap() {
         return COURSE_FACULTY;
     }
 
@@ -48,11 +48,8 @@ public class OfficeHours extends MeetUp {
         COURSE_FACULTY.put("Pre-Calculus I", new ArrayList<>(List.of(
                 "Kofi Adu-Labi"
         )));
-        COURSE_FACULTY.put("Electromagnetism", new ArrayList<>());
+        COURSE_FACULTY.put("Electromagnetism", new ArrayList<>()); // No faculty yet
+        // Add any additional courses and lecturers as needed
     }
 
-    // Method to get faculty members for a specific course
-    public static List<String> getFacultyForCourse(String courseName) {
-        return COURSE_FACULTY.getOrDefault(courseName, new ArrayList<>());
-    }
 }

@@ -18,21 +18,27 @@ public class OnCampusHousing extends RemoteReservation {
         initializeHostelsAndRooms();
     }
 
-    public OnCampusHousing(Time time, Date date, String url, String roomName, String location, int currentOccupancy, String roomType, List<String> currentOccupants) {
-        super(time, date, url, roomName, location);
+    // Constructor to initialize OnCampusHousing object
+    public OnCampusHousing(Time time, Date date, String url, String roomName, String location,
+                           int currentOccupancy, String roomType, List<String> currentOccupants) {
+        super(time, date, url, roomName);
         this.currentOccupancy = currentOccupancy;
         this.roomType = roomType;
-        this.currentOccupants = currentOccupants;
+        // Ensures that currentOccupants is never null
+        this.currentOccupants = currentOccupants != null ? currentOccupants : new ArrayList<>();
     }
 
+    // Getter for currentOccupancy
     public int getCurrentOccupancy() {
         return currentOccupancy;
     }
 
+    // Getter for roomType
     public String getRoomType() {
         return roomType;
     }
 
+    // Getter for displaying current occupants
     public List<String> displayCurrentOccupants() {
         return currentOccupants;
     }
@@ -47,7 +53,7 @@ public class OnCampusHousing extends RemoteReservation {
         String[] hostels = {"Kofi Tawiah Hostel", "2C Hostel", "2D Hostel", "Oteng Korankye Hostel", "Wangari Maathai Hostel"};
         for (String hostel : hostels) {
             List<String> rooms = new ArrayList<>();
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++) {  // Assuming each hostel has 10 rooms for simplicity
                 rooms.add("Room " + i);
             }
             HOSTEL_ROOMS.put(hostel, rooms);
@@ -57,5 +63,14 @@ public class OnCampusHousing extends RemoteReservation {
     // Method to get rooms for a specific hostel
     public static List<String> getRoomsForHostel(String hostelName) {
         return HOSTEL_ROOMS.getOrDefault(hostelName, new ArrayList<>());
+    }
+
+    // Override toString method to provide detailed information about OnCampusHousing
+    @Override
+    public String toString() {
+        return super.toString() +
+                "\nCurrent Occupancy: " + currentOccupancy +
+                "\nRoom Type: " + roomType +
+                "\nCurrent Occupants: " + String.join(", ", currentOccupants);
     }
 }

@@ -6,15 +6,18 @@ import java.util.Map;
 public class ClassroomBooking extends RemoteReservation {
     private String classroomType;
 
+    // Constructor to initialize the ClassroomBooking object
     public ClassroomBooking(Time time, Date date, String url, String roomName, String location, String classroomType) {
-        super(time, date, url, roomName, location);
+        super(time, date, url, roomName); // Calling the parent constructor in RemoteReservation
         this.classroomType = classroomType;
     }
 
+    // Getter method for classroom type
     public String getClassroomType() {
         return classroomType;
     }
 
+    // Method to return a list of classroom names and types
     public static Map<String, String> getClassroomList() {
         Map<String, String> classrooms = new HashMap<>();
         classrooms.put("RB100", "Lecture room");
@@ -27,9 +30,9 @@ public class ClassroomBooking extends RemoteReservation {
         return classrooms;
     }
 
+    // Overriding toString to include classroom type
     @Override
     public String toString() {
-        return super.toString() +
-                "\nClassroom Type: " + classroomType;
+        return super.toString() + "\nClassroom Type: " + classroomType;
     }
 }

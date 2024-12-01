@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 
 public class SystemLogin extends JFrame {
@@ -258,10 +259,74 @@ public class SystemLogin extends JFrame {
                 openURL("https://ashesicounsellingunit.simplybook.me/");
                 break;
             case "Office Hours":
-                openURL("https://calendly.com");
+                showOfficeHoursOptions();
                 break;
         }
     }
+
+    private void showOfficeHoursOptions() {
+        JPanel officeHoursPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        officeHoursPanel.setBackground(Color.decode("#ad3537"));
+
+        JLabel titleLabel = new JLabel("Office Hours Booking", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        gbc.gridx = 0; gbc.gridy = 0; officeHoursPanel.add(titleLabel, gbc);
+
+        // Dropdown for courses
+        String[] courses = OfficeHours.getCourseFacultyMap().keySet().toArray(new String[0]);
+        JComboBox<String> courseDropdown = new JComboBox<>(courses);
+        courseDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 1; officeHoursPanel.add(courseDropdown, gbc);
+
+        // Dropdown for lecturers (initially empty)
+        JComboBox<String> lecturerDropdown = new JComboBox<>();
+        lecturerDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridy = 2; officeHoursPanel.add(lecturerDropdown, gbc);
+
+        // Listener for course dropdown selection
+        courseDropdown.addActionListener(e -> {
+            String selectedCourse = (String) courseDropdown.getSelectedItem();
+            updateLecturerDropdown(selectedCourse, lecturerDropdown);
+        });
+
+        // Book Button
+        JButton bookButton = new JButton("Book");
+        bookButton.addActionListener(e -> {
+            String selectedCourse = (String) courseDropdown.getSelectedItem();
+            String selectedLecturer = (String) lecturerDropdown.getSelectedItem();
+            handleOfficeHoursBooking(selectedCourse, selectedLecturer);
+        });
+        gbc.gridy = 3; officeHoursPanel.add(bookButton, gbc);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "humanReservationOptions"));
+        gbc.gridy = 4; officeHoursPanel.add(backButton, gbc);
+
+        cardPanel.add(officeHoursPanel, "officeHoursBooking");
+        cardLayout.show(cardPanel, "officeHoursBooking");
+    }
+
+    private void handleOfficeHoursBooking(String selectedCourse, String selectedLecturer) {
+        // Implement the logic to handle office hours booking here
+    }
+
+    private void updateLecturerDropdown(String selectedCourse, JComboBox<String> lecturerDropdown) {
+        // Clear previous items
+        lecturerDropdown.removeAllItems();
+
+        // Get the lecturers for the selected course from the OfficeHours static map
+        List<String> lecturers = OfficeHours.getCourseFacultyMap().get(selectedCourse);
+
+        // Check if lecturers list is not null before iterating
+        if (lecturers != null) {
+            for (String lecturer : lecturers) {
+                lecturerDropdown.addItem(lecturer); // Add each lecturer to the dropdown
+            }
+        }
+    }
+
 
     private void showRemoteReservationOptions() {
         JPanel remoteReservationPanel = new JPanel(new GridBagLayout());

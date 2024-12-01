@@ -8,7 +8,7 @@ public abstract class Reservation {
     private Time time;
     private Date date;
 
-    // Constructor for initializing time, date, and the shared URL
+    // Constructor for initializing time and date
     public Reservation(Time time, Date date, String url) {
         this.time = time;
         this.date = date;

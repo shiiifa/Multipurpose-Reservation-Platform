@@ -1,22 +1,12 @@
-import java.sql.Time;
-import java.util.Date;
-
 public class MeetUp extends Identity {
     private String sessionName;
     private String guest;
-    private Time time;
-    private Date date;
-    private String url;
 
     // Constructor for initializing the MeetUp
     public MeetUp(String userName, int userID, String userEmail, String password) {
         super(userName, userID, userEmail, password);
-        // Default values to avoid null assignments
-        this.sessionName = "Unknown Session";
-        this.guest = "No Guest";
-        this.time = new Time(0); // Midnight
-        this.date = new Date(); // Current date
-        this.url = "https://calendly.com"; // Default URL
+        this.sessionName = sessionName;
+        this.guest = guest;
     }
 
     // Getters for each field
@@ -24,18 +14,7 @@ public class MeetUp extends Identity {
         return guest;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
+    // Method to get session details
     public String getDetails() {
         return "Session: " + sessionName + ", Guest: " + guest;
     }
@@ -45,9 +24,6 @@ public class MeetUp extends Identity {
     public String toString() {
         return super.toString() +
                 "\nSession Name: " + sessionName +
-                "\nGuest: " + guest +
-                "\nTime: " + time +
-                "\nDate: " + date +
-                "\nURL: " + url;
+                "\nGuest: " + guest;
     }
 }

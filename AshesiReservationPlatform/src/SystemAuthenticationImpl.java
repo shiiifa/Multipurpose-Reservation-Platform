@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class SystemAuthenticationImpl extends Identity implements SystemAuthenticationTools {
+public abstract class SystemAuthenticationImpl extends Identity implements SystemAuthenticationTools {
     private List<Identity> users; // List to store user identities
     private String feedback;      // Stores user feedback
     private String receipt;       // Stores booking receipt details
