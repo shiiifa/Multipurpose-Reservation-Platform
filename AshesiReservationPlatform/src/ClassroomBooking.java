@@ -24,6 +24,8 @@ public class ClassroomBooking extends RemoteReservation {
         classrooms.put("Norton Motulsky 207A", "Lecture room");
         classrooms.put("Norton Motulsky 207B", "Lecture room");
         classrooms.put("Araba Apt 217", "Lecture hall");
+        classrooms.put("Lab 221", "Computer Lab");
+        classrooms.put("Lab 222", "Computer Lab");
         return classrooms;
     }
 
