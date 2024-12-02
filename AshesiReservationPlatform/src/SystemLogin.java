@@ -100,10 +100,10 @@ public class SystemLogin extends JFrame {
         JLabel footerLabel = new JLabel("© 2024 Shifa | Bradley | Edinam for Ashesi University", JLabel.CENTER);
         footerLabel.setFont(new Font("Arial", Font.PLAIN, 10)); // Smaller font size
         footerLabel.setForeground(Color.WHITE);
-        gbc.gridy = 20; // Position it at the bottom
+        gbc.gridy = 20;
         panel.add(footerLabel, gbc);
 
-        // Login Button
+
         JButton loginButton = new JButton("Login/Sign Up");
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();

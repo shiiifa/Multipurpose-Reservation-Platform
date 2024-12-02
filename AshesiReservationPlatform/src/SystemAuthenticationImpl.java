@@ -1,17 +1,13 @@
-import java.util.*;
-import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class SystemAuthenticationImpl extends Identity implements SystemAuthenticationTools {
+abstract class SystemAuthenticationImpl extends Identity implements SystemAuthenticationTools {
     private List<Identity> users;
     private String feedback;
-    private String receipt;
-    private String roomName;
-    private List<String> currentOccupants;
 
-    public SystemAuthenticationImpl(String userName, int userID, String userEmail, String password) {
+    public SystemAuthenticationImpl(String userName, int userID, String userEmail, String password, List users, String feedback) {
         super(userName, userID, userEmail, password);
         this.users = new ArrayList<>();
-        this.currentOccupants = new ArrayList<>();
     }
 
     public void addUser(String userName, int userID, String userEmail, String password) {
@@ -19,47 +15,25 @@ public abstract class SystemAuthenticationImpl extends Identity implements Syste
         users.add(newUser);
     }
 
-    // Validation for username, email, and password
     public boolean validateInput(String userName, int userID, String userEmail, String password) {
-        // Validate username (letters a-z, case insensitive)
         if (!userName.matches("[a-zA-Z]+")) {
             feedback = "Username must contain only letters.";
             return false;
         }
-
-        // Validate email (basic format check)
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if (!userEmail.matches(emailPattern)) {
-            feedback = "Email must contain '@' and be in a valid format.";
+            feedback = "Email must be in a valid format.";
             return false;
         }
-
-        // Validate password (at least 8 characters)
         if (password.length() < 8) {
-            feedback = "Password must be at least 8 characters long.";
+            feedback = "Password must be at least 8 characters.";
             return false;
         }
-
         feedback = "Valid input.";
         return true;
     }
 
-    public void signIn(String userName, String password) {
-        Scanner scanner = new Scanner(System.in);
-        boolean authenticated = false;
-
-        // Authenticate user credentials
-        for (Identity user : users) {
-            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-                authenticated = true;
-                break;
-            }
-        }
-
-        if (authenticated) {
-            System.out.println("Sign-in successful!");
-        } else {
-            System.out.println("Authentication failed.");
-        }
+    public String getFeedback() {
+        return feedback;
     }
 }

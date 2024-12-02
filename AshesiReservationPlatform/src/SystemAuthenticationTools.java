@@ -1,13 +1,7 @@
-import java.util.List;
-
 public interface SystemAuthenticationTools {
-    // Methods related to feedback
-    void setFeedback(String feedback);  // Set feedback from the user
-    List<String> getFeedbacks();        // Get all feedbacks
-    String message();
-    String getNotification();
+    String getFeedback();        // Get feedback messages
 
-    // Authentication methods
-    void signIn();
-    void signUp();
+    void signIn(String userName, String password);   // Sign in a user with credentials
+
+    void signUp(String userName, int userID, String userEmail, String password);   // Sign up a new user
 }
