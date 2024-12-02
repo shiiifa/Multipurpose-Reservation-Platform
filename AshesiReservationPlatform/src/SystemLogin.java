@@ -47,7 +47,7 @@ public class SystemLogin extends JFrame {
         headerPanel.setBackground(Color.decode("#ad3537"));
         headerPanel.setLayout(new BorderLayout());
 
-        ImageIcon logo = new ImageIcon("ashesi.jpg");
+        ImageIcon logo = new ImageIcon("ashesi.png");
         Image img = logo.getImage();
         Image scaledImg = img.getScaledInstance(75, 75, Image.SCALE_SMOOTH); // Reduced size to 75x75
         logo = new ImageIcon(scaledImg);
@@ -355,13 +355,10 @@ public class SystemLogin extends JFrame {
 
         cardPanel.add(classroomBookingPanel, "classroomBookingOptions");
         cardLayout.show(cardPanel, "classroomBookingOptions");
-
-        // Initial population of classroom dropdown (default to "Lecture room")
         updateClassroomDropdown("Lecture room", classroomDropdown, classrooms);
     }
 
     private void handleClassroomBooking(String selectedClassroom, String selectedTime) {
-        // Display success message
         JOptionPane.showMessageDialog(null,
                 "Booking Successful!\nClassroom: " + selectedClassroom + "\nTime: " + selectedTime,
                 "Success",
@@ -373,10 +370,7 @@ public class SystemLogin extends JFrame {
 
 
     private void updateClassroomDropdown(String selectedType, JComboBox<String> classroomDropdown, Map<String, String> classrooms) {
-        // Clear previous classroom options
         classroomDropdown.removeAllItems();
-
-        // Filter classrooms based on the selected classroom type
         for (Map.Entry<String, String> entry : classrooms.entrySet()) {
             if (entry.getValue().equals(selectedType)) {
                 classroomDropdown.addItem(entry.getKey()); // Add classroom to dropdown
@@ -460,7 +454,7 @@ public class SystemLogin extends JFrame {
         courseDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridy = 1; officeHoursPanel.add(courseDropdown, gbc);
 
-        // Dropdown for lecturers (initially empty)
+        // Dropdown for lecturers
         JComboBox<String> lecturerDropdown = new JComboBox<>();
         lecturerDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridy = 2; officeHoursPanel.add(lecturerDropdown, gbc);
@@ -489,19 +483,17 @@ public class SystemLogin extends JFrame {
     }
 
     private void updateLecturerDropdown(String selectedCourse, JComboBox<String> lecturerDropdown) {
-        // Clear the current contents of the dropdown
         lecturerDropdown.removeAllItems();
 
-        // Get the list of faculty members for the selected course
+
         List<String> facultyList = OfficeHours.getCourseFacultyMap().get(selectedCourse);
 
-        // If there are faculty members for the selected course, add them to the dropdown
+        //If there are faculty members for the selected course, add them to the dropdown
         if (facultyList != null && !facultyList.isEmpty()) {
             for (String faculty : facultyList) {
                 lecturerDropdown.addItem(faculty);
             }
         } else {
-            // If there are no faculty members (e.g., "Electromagnetism"), add a placeholder
             lecturerDropdown.addItem("No faculty assigned");
         }
     }
@@ -593,7 +585,7 @@ public class SystemLogin extends JFrame {
         } else if (selectedFaculty.equals("Alberta Awura Adjoa Asiamah")) {
             url = "https://calendly.com/aamankwa-2026";
         }
-        openURL(url); //To redirect the user to the selected url
+        openURL(url);
 
         // Wait for a brief time before showing the feedback panel
         Timer timer = new Timer(3000, e -> showFeedbackPanel());
@@ -646,11 +638,9 @@ public class SystemLogin extends JFrame {
             String feedback = feedbackTextArea.getText().trim();
 
             if (feedback.isEmpty()) {
-                // If no feedback provided, show the thank you message after a delay
                 showThankYouMessageAfterRedirection();
             } else {
                 System.out.println("Feedback: " + feedback);
-                // Trigger redirection and then show "Thank You" message after a delay
                 showThankYouMessageAfterRedirection();
             }
         });
