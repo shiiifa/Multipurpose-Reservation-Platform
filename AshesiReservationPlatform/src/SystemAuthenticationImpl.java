@@ -25,10 +25,12 @@ abstract class SystemAuthenticationImpl extends Identity implements SystemAuthen
             feedback = "Email must be in a valid format.";
             return false;
         }
+
         if (password.length() < 8) {
             feedback = "Password must be at least 8 characters.";
             return false;
         }
+
         feedback = "Valid input.";
         return true;
     }
