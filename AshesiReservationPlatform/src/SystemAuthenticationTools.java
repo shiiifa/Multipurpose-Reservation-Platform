@@ -1,7 +1,7 @@
 public interface SystemAuthenticationTools {
-    String getFeedback();        // Get feedback messages
+    String getFeedback();
 
-    void signIn(String userName, String password);   // Sign in a user with credentials
+    void signIn(String userName, String password);
 
-    void signUp(String userName, int userID, String userEmail, String password);   // Sign up a new user
+    void signUp(String userName, int userID, String userEmail, String password);
 }
