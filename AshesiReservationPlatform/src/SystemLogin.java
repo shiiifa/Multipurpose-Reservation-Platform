@@ -46,7 +46,7 @@ public class SystemLogin extends JFrame {
         headerPanel.setBackground(Color.decode("#ad3537"));
         headerPanel.setLayout(new BorderLayout());
 
-        ImageIcon logo = new ImageIcon("ashesi.png");
+        ImageIcon logo = new ImageIcon("ashesi.jpg");
         Image img = logo.getImage();
         Image scaledImg = img.getScaledInstance(75, 75, Image.SCALE_SMOOTH); // Reduced size to 75x75
         logo = new ImageIcon(scaledImg);
@@ -383,6 +383,7 @@ public class SystemLogin extends JFrame {
                 "Counselling Services",
                 "Office Hours"
         };
+
         JComboBox<String> humanReservationDropdown = new JComboBox<>(humanReservations);
         humanReservationDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridy = 1;
@@ -491,13 +492,9 @@ public class SystemLogin extends JFrame {
             openLink("https://calpoly.zoom.us/j/83854958595");
         } else if ("Elena V. Rosca".equals(selectedLecturer)) {
             openLink("https://outlook.office.com/bookwithme/user/a4ce7d45f25b426795db7b3401eed88d%40ashesi.edu.gh?anonymous");
-        } else if ("Kofi Adu-Labi".equals(selectedLecturer)) {
-            openLink("https://outlook.office.com/bookwithme/user/a4ce7d45f25b426795db7b3401eed88d%40ashesi.edu.gh?anonymous");
         } else {
             openLink("https://calendly.com");
         }
-        showFeedbackPanel();
-        showThankYouMessage();
     }
 
     // Helper method to open the given URL in the browser
