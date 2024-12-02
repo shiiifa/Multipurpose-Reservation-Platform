@@ -423,8 +423,6 @@ public class SystemLogin extends JFrame {
     }
 
 
-
-
     private void showOfficeHoursOptions() {
         JPanel officeHoursPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

@@ -1,4 +1,4 @@
-public class SeminarRoom {
+public class SeminarRoom extends RemoteReservation {
     public static final String SEMINAR_ROOM_URL = "https://warrenlibraryseminarroom.simplybook.me/v2/";
 
     @Override
