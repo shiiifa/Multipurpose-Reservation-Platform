@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -409,19 +408,20 @@ public class SystemLogin extends JFrame {
     private void handleHumanReservationSelection(String selectedOption) {
         switch (selectedOption) {
             case "Career Services":
-                showCareerServicesOptions();
+                showCareerServicesOptions(); // Opens Career Services options
                 break;
             case "Peer Tutoring":
-                openURL(PeerTutoring.PEER_TUTORING_URL);
+                openURL(PeerTutoring.PEER_TUTORING_URL); // Opens Peer Tutoring URL
                 break;
             case "Counselling Services":
-                openURL(Counselling.COUNSELLING_URL);
+                openURL(Counselling.COUNSELLING_URL); // Opens Counselling Services URL
                 break;
             case "Office Hours":
-                showOfficeHoursOptions();
+                showOfficeHoursOptions(); // Displays office hours options
                 break;
         }
     }
+
 
 
 

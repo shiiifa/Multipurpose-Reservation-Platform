@@ -6,8 +6,6 @@ public interface SystemAuthenticationTools {
     List<String> getFeedbacks();        // Get all feedbacks
     String message();
     String getNotification();
-
-    // Authentication methods
     void signIn();
     void signUp();
 }
