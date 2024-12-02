@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class SystemLogin extends JFrame {
     private JTextField usernameField, userIDField, emailField;
@@ -13,6 +14,7 @@ public class SystemLogin extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
+
     public SystemLogin() {
         this.setTitle("Ashesi Multipurpose Reservation System");
         this.setSize(500, 500);
@@ -20,15 +22,15 @@ public class SystemLogin extends JFrame {
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.decode("#ad3537"));
 
-        //CardLayout for dynamic screens
+        // CardLayout for dynamic screens
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        //First screen (login)
+        // First screen (login)
         JPanel loginPanel = createLoginPanel();
         cardPanel.add(loginPanel, "login");
 
-        //Add cardPanel to frame
+        // Add cardPanel to frame
         this.add(cardPanel, BorderLayout.CENTER);
 
         setVisible(true);
@@ -40,7 +42,7 @@ public class SystemLogin extends JFrame {
         panel.setBackground(Color.decode("#ad3537"));
         Font customFont = new Font("Arial", Font.BOLD, 14);
 
-        //Header Section with Logo and Title
+        // Header Section with Logo and Title
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(Color.decode("#ad3537"));
         headerPanel.setLayout(new BorderLayout());
@@ -61,28 +63,28 @@ public class SystemLogin extends JFrame {
         gbc.gridy = 0;
         panel.add(headerPanel, gbc);
 
-        //Username Field
+        // Username Field
         usernameField = createTextField("Username");
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(usernameField, gbc);
 
-        //User ID Field
+        // User ID Field
         userIDField = createTextField("User ID");
         gbc.gridy = 2;
         panel.add(userIDField, gbc);
 
-        //Email Field
+        // Email Field
         emailField = createTextField("Email");
         gbc.gridy = 3;
         panel.add(emailField, gbc);
 
-        //Password Field
+        // Password Field
         passwordField = createPasswordField("Password");
         gbc.gridy = 4;
         panel.add(passwordField, gbc);
 
-        //Show Password Checkbox
+        // Show Password Checkbox
         showPasswordCheckBox = new JCheckBox("Show Password");
         showPasswordCheckBox.addActionListener(e -> {
             if (showPasswordCheckBox.isSelected()) {
@@ -101,13 +103,19 @@ public class SystemLogin extends JFrame {
         gbc.gridy = 20; // Position it at the bottom
         panel.add(footerLabel, gbc);
 
-        //Login Button
+        // Login Button
         JButton loginButton = new JButton("Login/Sign Up");
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
             if (username.isEmpty() || password.isEmpty() || emailField.getText().isEmpty() || userIDField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Oops", JOptionPane.ERROR_MESSAGE);
+            } else if (!isValidEmail(emailField.getText())) {
+                JOptionPane.showMessageDialog(null, "Invalid email format!", "Oops", JOptionPane.ERROR_MESSAGE);
+            } else if (!isValidUsername(username)) {
+                JOptionPane.showMessageDialog(null, "Invalid username. Only letters allowed.", "Oops", JOptionPane.ERROR_MESSAGE);
+            } else if (!isValidPassword(password)) {
+                JOptionPane.showMessageDialog(null, "Password must be at least 8 characters.", "Oops", JOptionPane.ERROR_MESSAGE);
             } else {
                 int userID = Integer.parseInt(userIDField.getText());
                 currentUser = new Identity(username, userID, emailField.getText(), password);
@@ -117,7 +125,7 @@ public class SystemLogin extends JFrame {
         gbc.gridy = 6;
         panel.add(loginButton, gbc);
 
-        //Reset Button
+        // Reset Button
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> {
             usernameField.setText("");
@@ -177,14 +185,27 @@ public class SystemLogin extends JFrame {
         return passwordField;
     }
 
-
-
     private void handleUserAuthentication(Identity user) {
         System.out.println("User authenticated: " + user.getUserName());
         System.out.println("User ID: " + user.getUserID());
         System.out.println("User Email address: " + user.getUserEmail());
         proceedToBookingSelection();
     }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    private boolean isValidUsername(String username) {
+        return username.matches("[a-zA-Z ]+");
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8;
+    }
+
 
     private void proceedToBookingSelection() {
         JPanel bookingSelectionPanel = createBookingSelectionPanel();
