@@ -18,9 +18,6 @@ public class Identity {
         this.password=password;
     }
 
-    public void acceptUserData() {
-    }
-
     public String getUserName() {
         return userName;
     }

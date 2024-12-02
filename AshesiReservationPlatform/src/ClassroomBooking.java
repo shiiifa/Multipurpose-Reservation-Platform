@@ -7,8 +7,8 @@ public class ClassroomBooking extends RemoteReservation {
     private String classroomType;
 
     // Constructor to initialize the ClassroomBooking object
-    public ClassroomBooking(Time time, Date date, String url, String roomName, String location, String classroomType) {
-        super(time, date, url, roomName); // Calling the parent constructor in RemoteReservation
+    public ClassroomBooking(String classroomType) {
+        super(); // Calling the parent constructor in RemoteReservation
         this.classroomType = classroomType;
     }
 

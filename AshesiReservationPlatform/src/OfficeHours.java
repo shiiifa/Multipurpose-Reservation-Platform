@@ -16,8 +16,8 @@ public class OfficeHours extends MeetUp {
     }
 
     // Constructor to initialize the OfficeHours object
-    public OfficeHours(String userName, int userID, String userEmail, String password) {
-        super(userName, userID, userEmail, password);
+    public OfficeHours() {
+        super();
     }
 
     // Getter for courseName
