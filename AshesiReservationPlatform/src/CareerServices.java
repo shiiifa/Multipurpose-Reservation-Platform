@@ -2,8 +2,7 @@ public class CareerServices extends MeetUp {
     private String facultyName;
     private int yearGroup;
 
-    public CareerServices(String userName, int userID, String userEmail, String password,
-                          String sessionName, String guest, String facultyName, int yearGroup) {
+    public CareerServices(String userName, int userID, String userEmail, String password, String facultyName, int yearGroup) {
         super(userName, userID, userEmail, password);
         this.facultyName = facultyName;
         this.yearGroup = yearGroup;

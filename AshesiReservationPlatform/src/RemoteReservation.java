@@ -17,18 +17,6 @@ public class RemoteReservation extends Reservation {
         return roomName;
     }
 
-    // Method to check availability (currently returns true, but you should implement logic)
-    public boolean checkAvailability() {
-        // Example logic could be added here to check availability
-        // For now, it returns true
-        return true;
-    }
-
-    // Getter for location
-    public String getLocation() {
-        return location;
-    }
-
     // Override getDetails to include room and location details
     @Override
     public String getDetails() {

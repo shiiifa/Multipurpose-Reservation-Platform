@@ -1,23 +1,9 @@
-public class Counselling extends MeetUp {
-    private String counsellorName;
+public class Counselling {
+    public static final String COUNSELLING_URL = "https://ashesicounsellingunit.simplybook.me/";
 
-    // Constructor for initializing Counselling object
-    public Counselling(String userName, int userID, String userEmail, String password,
-                       String sessionName, String guest, String counsellorName) {
-        super(userName, userID, userEmail, password);
-        this.counsellorName = counsellorName;
-    }
-
-    // Getter for counsellorName
-    public String getCounsellorName() {
-        return counsellorName;
-    }
-
-    // Override the toString method to provide a summary of the Counselling object
+    // Override the toString method to provide information about the Counselling service
     @Override
     public String toString() {
-        return super.toString() +
-                "\nSession Type: Counselling" +
-                "\nCounsellor Name: " + counsellorName;
+        return "Counselling Service URL: " + COUNSELLING_URL;
     }
 }

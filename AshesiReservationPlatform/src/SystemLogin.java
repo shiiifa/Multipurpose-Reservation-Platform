@@ -412,16 +412,18 @@ public class SystemLogin extends JFrame {
                 showCareerServicesOptions();
                 break;
             case "Peer Tutoring":
-                openURL("https://bookingsite-28132.web.app/");
+                openURL(PeerTutoring.PEER_TUTORING_URL);
                 break;
             case "Counselling Services":
-                openURL("https://ashesicounsellingunit.simplybook.me/");
+                openURL(Counselling.COUNSELLING_URL);
                 break;
             case "Office Hours":
                 showOfficeHoursOptions();
                 break;
         }
     }
+
+
 
     private void showOfficeHoursOptions() {
         JPanel officeHoursPanel = new JPanel(new GridBagLayout());
