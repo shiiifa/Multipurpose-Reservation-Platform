@@ -15,6 +15,7 @@ public class OfficeHours extends MeetUp {
         initializeCourseFaculty();
     }
 
+    // Constructor to initialize the OfficeHours object
     public OfficeHours(String userName, int userID, String userEmail, String password) {
         super(userName, userID, userEmail, password);
     }
@@ -29,7 +30,7 @@ public class OfficeHours extends MeetUp {
         return facultyName;
     }
 
-    // Method to retrieve the map of courses and faculty members
+    // Static method to retrieve the map of courses and faculty members
     public static Map<String, List<String>> getCourseFacultyMap() {
         return COURSE_FACULTY;
     }
@@ -52,5 +53,4 @@ public class OfficeHours extends MeetUp {
                 "Kofi Adu-Labi"
         )));
     }
-
 }
