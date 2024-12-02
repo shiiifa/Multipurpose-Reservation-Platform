@@ -279,8 +279,6 @@ public class SystemLogin extends JFrame {
                 openURL("https://warrenlibraryseminarroom.simplybook.me/v2/");
                 break;
         }
-        showFeedbackPanel();
-        showThankYouMessage();
     }
 
     private void showClassroomBookingOptions() {
